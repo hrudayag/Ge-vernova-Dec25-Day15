@@ -35,6 +35,13 @@ public class EmployeePayrollService {
             e.printStackTrace();
         }
     }
+    public long readEmployeePayrollData() {
+        try {
+            return Files.lines(Paths.get(FILE_NAME)).count();
+        } catch (IOException e) {
+            return 0;
+        }
+    }
 
 
     public static void main(String[] args) {
@@ -49,6 +56,6 @@ public class EmployeePayrollService {
         System.out.println("Entries count: " + service.countEntries());
         service.printEmployeePayrollData();
         System.out.println("Entries count: " + service.countEntries());
-
+        System.out.println("Entries after reading file: " + service.readEmployeePayrollData());
     }
 }
