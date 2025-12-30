@@ -9,7 +9,8 @@ public class AddressBookMain {
             System.out.println("\nMain Menu:");
             System.out.println("1. Add New Address Book");
             System.out.println("2. Select Address Book");
-            System.out.println("3. Exit");
+            System.out.println("3. Search Person by City or State");
+            System.out.println("4. Exit");
             System.out.print("Choose an option: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -155,8 +156,31 @@ public class AddressBookMain {
                         }
                     }
                     break;
-
                 case 3:
+                    System.out.print("Search by (city/state): ");
+                    String type = scanner.nextLine().toLowerCase();
+
+                    System.out.print("Enter value: ");
+                    String value = scanner.nextLine();
+
+                    List<Contact> results = addressBookMap.values().stream()
+                            .flatMap(book -> book.getContacts().stream())
+                            .filter(c -> type.equals("city")
+                                    ? c.getCity().equalsIgnoreCase(value)
+                                    : c.getState().equalsIgnoreCase(value))
+                            .toList();
+
+                    if (results.isEmpty()) {
+                        System.out.println(
+                                "No person found for " + type + " = " + value
+                        );
+                    } else {
+                        results.forEach(System.out::println);
+                    }
+                    break;
+
+
+                case 4:
                     running = false;
                     System.out.println("Exiting system. Thank you!");
                     break;
