@@ -28,6 +28,14 @@ public class EmployeePayrollService {
             return 0;
         }
     }
+    public void printEmployeePayrollData() {
+        try {
+            Files.lines(Paths.get(FILE_NAME)).forEach(System.out::println);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static void main(String[] args) {
         List<EmployeePayrollData> list = Arrays.asList(
@@ -39,5 +47,8 @@ public class EmployeePayrollService {
         EmployeePayrollService service = new EmployeePayrollService(list);
         service.writeEmployeePayrollDataToFile();
         System.out.println("Entries count: " + service.countEntries());
+        service.printEmployeePayrollData();
+        System.out.println("Entries count: " + service.countEntries());
+
     }
 }
