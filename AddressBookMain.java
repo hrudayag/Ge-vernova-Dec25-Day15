@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 public class AddressBookMain {
     public static void main(String[] args) {
         System.out.println("Welcome to Address Book Program");
@@ -10,7 +11,9 @@ public class AddressBookMain {
             System.out.println("1. Add New Address Book");
             System.out.println("2. Select Address Book");
             System.out.println("3. Search Person by City or State");
-            System.out.println("4. Exit");
+            System.out.println("4. View Persons by City");
+            System.out.println("5. View Persons by State");
+            System.out.println("6. Exit");
             System.out.print("Choose an option: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -181,6 +184,36 @@ public class AddressBookMain {
 
 
                 case 4:
+                    Map<String, List<Contact>> personsByCity =
+                            addressBookMap.values().stream()
+                                    .flatMap(book -> book.getContacts().stream())
+                                    .collect(Collectors.groupingBy(Contact::getCity));
+
+                    if (personsByCity.isEmpty()) {
+                        System.out.println("No contacts available.");
+                    } else {
+                        personsByCity.forEach((city, persons) -> {
+                            System.out.println("\nCity: " + city);
+                            persons.forEach(System.out::println);
+                        });
+                    }
+                    break;
+                case 5:
+                    Map<String, List<Contact>> personsByState =
+                            addressBookMap.values().stream()
+                                    .flatMap(book -> book.getContacts().stream())
+                                    .collect(Collectors.groupingBy(Contact::getState));
+
+                    if (personsByState.isEmpty()) {
+                        System.out.println("No contacts available.");
+                    } else {
+                        personsByState.forEach((state, persons) -> {
+                            System.out.println("\nState: " + state);
+                            persons.forEach(System.out::println);
+                        });
+                    }
+                    break;
+                case 6:
                     running = false;
                     System.out.println("Exiting system. Thank you!");
                     break;
