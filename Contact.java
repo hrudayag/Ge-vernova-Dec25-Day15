@@ -1,4 +1,5 @@
 import java.util.Objects;
+
 public class Contact {
     private String firstName;
     private String lastName;
@@ -8,8 +9,10 @@ public class Contact {
     private String zip;
     private String phoneNumber;
     private String email;
-    public Contact(String firstName, String lastName, String address, String city,
-                   String state, String zip, String phoneNumber, String email) {
+
+    public Contact(String firstName, String lastName, String address,
+                   String city, String state, String zip,
+                   String phoneNumber, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -18,66 +21,27 @@ public class Contact {
         this.zip = zip;
         this.phoneNumber = phoneNumber;
         this.email = email;
-    }
-    public String getFirstName() {
-        return firstName;
-    }
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-    public String getLastName() {
-        return lastName;
-    }
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-    public String getAddress() {
-        return address;
-    }
-    public void setAddress(String address) {
-        this.address = address;
-    }
-    public String getCity() {
-        return city;
-    }
-    public void setCity(String city) {
-        this.city = city;
-    }
-    public String getState() {
-        return state;
-    }
-    public void setState(String state) {
-        this.state = state;
-    }
-    public String getZip() {
-        return zip;
-    }
-    public void setZip(String zip) {
-        this.zip = zip;
-    }
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-    public String getEmail() {
-        return email;
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    @Override
-    public String toString() {
-        return "Contact [firstName=" + firstName + ", lastName=" + lastName +
-                ", address=" + address + ", city=" + city + ", state=" + state +
-                ", zip=" + zip + ", phoneNumber=" + phoneNumber + ", email=" + email + "]";
     }
 
+    // Getters & Setters
+    public String getFirstName() { return firstName; }
+    public String getLastName() { return lastName; }
+    public String getCity() { return city; }
+    public String getState() { return state; }
+    public String getZip() { return zip; }
+
+    public void setAddress(String address) { this.address = address; }
+    public void setCity(String city) { this.city = city; }
+    public void setState(String state) { this.state = state; }
+    public void setZip(String zip) { this.zip = zip; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
+    public void setEmail(String email) { this.email = email; }
+
+    // UC7: Duplicate check by name
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (!(obj instanceof Contact)) return false;
         Contact c = (Contact) obj;
         return firstName.equalsIgnoreCase(c.firstName) &&
                 lastName.equalsIgnoreCase(c.lastName);
@@ -85,9 +49,16 @@ public class Contact {
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-                firstName.toLowerCase(),
-                lastName.toLowerCase()
-        );
+        return Objects.hash(firstName.toLowerCase(), lastName.toLowerCase());
+    }
+
+    @Override
+    public String toString() {
+        return "Contact [firstName=" + firstName +
+                ", lastName=" + lastName +
+                ", city=" + city +
+                ", state=" + state +
+                ", phone=" + phoneNumber +
+                ", email=" + email + "]";
     }
 }

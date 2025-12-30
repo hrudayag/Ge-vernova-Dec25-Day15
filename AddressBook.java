@@ -1,43 +1,44 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class AddressBook {
-    private List<Contact> contacts;
-    public AddressBook() {
-        contacts = new ArrayList<>();
-    }
-    // UC7: Duplicate check using Streams
+
+    private List<Contact> contacts = new ArrayList<>();
+
+    //UC2,UC7
     public void addContact(Contact contact) {
-        boolean isDuplicate = contacts.stream()
+        boolean duplicate = contacts.stream()
                 .anyMatch(c -> c.equals(contact));
 
-        if (isDuplicate) {
+        if (duplicate) {
             System.out.println("Duplicate contact! Not added.");
             return;
         }
-
         contacts.add(contact);
         System.out.println("Contact added successfully!");
     }
 
+    //UC3
     public Contact findContact(String firstName, String lastName) {
         return contacts.stream()
-                .filter(c ->
-                        c.getFirstName().equalsIgnoreCase(firstName) &&
-                                c.getLastName().equalsIgnoreCase(lastName))
+                .filter(c -> c.getFirstName().equalsIgnoreCase(firstName)
+                        && c.getLastName().equalsIgnoreCase(lastName))
                 .findFirst()
                 .orElse(null);
     }
 
+    //UC4
     public void deleteContact(String firstName, String lastName) {
-        Contact contact = findContact(firstName, lastName);
-        if (contact != null) {
-            contacts.remove(contact);
+        Contact c = findContact(firstName, lastName);
+        if (c != null) {
+            contacts.remove(c);
             System.out.println("Contact deleted successfully!");
         } else {
             System.out.println("Contact not found!");
         }
     }
 
+    //UC5
     public void displayAllContacts() {
         if (contacts.isEmpty()) {
             System.out.println("No contacts available.");
@@ -46,8 +47,19 @@ public class AddressBook {
         contacts.forEach(System.out::println);
     }
 
+    //UC11
+    public void sortByName() {
+        if (contacts.isEmpty()) {
+            System.out.println("No contacts to sort.");
+            return;
+        }
+
+        contacts.stream()
+                .sorted(Comparator.comparing(Contact::getFirstName)
+                        .thenComparing(Contact::getLastName))
+                .forEach(System.out::println);
+    }
     public List<Contact> getContacts() {
         return contacts;
     }
-
 }
