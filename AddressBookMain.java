@@ -59,7 +59,9 @@ public class AddressBookMain {
                         System.out.println("6. Sort Contacts by City");
                         System.out.println("7. Sort Contacts by State");
                         System.out.println("8. Sort Contacts by Zip");
-                        System.out.println("9. Back");
+                        System.out.println("9. Write Contacts to File");
+                        System.out.println("10. Read Contacts from File");
+                        System.out.println("11. Back");
                         System.out.print("Choose an option: ");
 
 
@@ -134,6 +136,17 @@ public class AddressBookMain {
                                 break;
 
                             case 9:
+                                System.out.print("Enter file name: ");
+                                String fileName = scanner.nextLine();
+                                book.writeToFile(fileName);
+                                break;
+
+                            case 10:
+                                System.out.print("Enter file name: ");
+                                String readFile = scanner.nextLine();
+                                book.readFromFile(readFile);
+                                break;
+                            case 11:
                                 inside = false;
                                 break;
                         }

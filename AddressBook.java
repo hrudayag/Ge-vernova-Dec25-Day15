@@ -1,5 +1,11 @@
 import java.util.*;
 import java.util.stream.Collectors;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.IOException;
+
 
 public class AddressBook {
 
@@ -98,4 +104,34 @@ public class AddressBook {
     public List<Contact> getContacts() {
         return contacts;
     }
+    public void writeToFile(String fileName) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (Contact c : contacts) {
+                writer.write(
+                        c.getFirstName() + "," +
+                                c.getLastName() + "," +
+                                c.getCity() + "," +
+                                c.getState() + "," +
+                                c.getZip()
+                );
+                writer.newLine();
+            }
+            System.out.println("Contacts written to file successfully.");
+        } catch (IOException e) {
+            System.out.println("Error writing to file.");
+        }
+    }
+
+    public void readFromFile(String fileName) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            System.out.println("\n--- Contacts from File ---");
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading from file.");
+        }
+    }
+
 }
