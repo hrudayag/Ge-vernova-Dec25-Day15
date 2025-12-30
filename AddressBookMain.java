@@ -13,7 +13,9 @@ public class AddressBookMain {
             System.out.println("3. Search Person by City or State");
             System.out.println("4. View Persons by City");
             System.out.println("5. View Persons by State");
-            System.out.println("6. Exit");
+            System.out.println("6. Count Contacts by City");
+            System.out.println("7. Count Contacts by State");
+            System.out.println("8. Exit");
             System.out.print("Choose an option: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -214,6 +216,38 @@ public class AddressBookMain {
                     }
                     break;
                 case 6:
+                    Map<String, Long> countByCity =
+                            addressBookMap.values().stream()
+                                    .flatMap(book -> book.getContacts().stream())
+                                    .collect(Collectors.groupingBy(
+                                            Contact::getCity,
+                                            Collectors.counting()
+                                    ));
+
+                    if (countByCity.isEmpty()) {
+                        System.out.println("No contacts available.");
+                    } else {
+                        countByCity.forEach((city, count) ->
+                                System.out.println(city + " -> " + count));
+                    }
+                    break;
+                case 7:
+                    Map<String, Long> countByState =
+                            addressBookMap.values().stream()
+                                    .flatMap(book -> book.getContacts().stream())
+                                    .collect(Collectors.groupingBy(
+                                            Contact::getState,
+                                            Collectors.counting()
+                                    ));
+
+                    if (countByState.isEmpty()) {
+                        System.out.println("No contacts available.");
+                    } else {
+                        countByState.forEach((state, count) ->
+                                System.out.println(state + " -> " + count));
+                    }
+                    break;
+                case 8:
                     running = false;
                     System.out.println("Exiting system. Thank you!");
                     break;
