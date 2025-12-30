@@ -3,7 +3,6 @@ public class AddressBookMain {
     public static void main(String[] args) {
         System.out.println("Welcome to Address Book Program");
         Scanner scanner = new Scanner(System.in);
-        // UC6: Dictionary of AddressBook Name -> AddressBook
         Map<String, AddressBook> addressBookMap = new HashMap<>();
         boolean running = true;
         while (running) {

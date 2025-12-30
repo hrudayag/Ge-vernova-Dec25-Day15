@@ -1,3 +1,4 @@
+import java.util.Objects;
 public class Contact {
     private String firstName;
     private String lastName;
@@ -71,5 +72,22 @@ public class Contact {
         return "Contact [firstName=" + firstName + ", lastName=" + lastName +
                 ", address=" + address + ", city=" + city + ", state=" + state +
                 ", zip=" + zip + ", phoneNumber=" + phoneNumber + ", email=" + email + "]";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Contact c = (Contact) obj;
+        return firstName.equalsIgnoreCase(c.firstName) &&
+                lastName.equalsIgnoreCase(c.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                firstName.toLowerCase(),
+                lastName.toLowerCase()
+        );
     }
 }
