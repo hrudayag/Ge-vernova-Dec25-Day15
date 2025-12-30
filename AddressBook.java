@@ -59,6 +59,42 @@ public class AddressBook {
                         .thenComparing(Contact::getLastName))
                 .forEach(System.out::println);
     }
+    // UC12: Sort by City
+    public void sortByCity() {
+        if (contacts.isEmpty()) {
+            System.out.println("No contacts to sort.");
+            return;
+        }
+
+        contacts.stream()
+                .sorted(Comparator.comparing(Contact::getCity))
+                .forEach(System.out::println);
+    }
+
+    // UC12: Sort by State
+    public void sortByState() {
+        if (contacts.isEmpty()) {
+            System.out.println("No contacts to sort.");
+            return;
+        }
+
+        contacts.stream()
+                .sorted(Comparator.comparing(Contact::getState))
+                .forEach(System.out::println);
+    }
+
+    // UC12: Sort by Zip
+    public void sortByZip() {
+        if (contacts.isEmpty()) {
+            System.out.println("No contacts to sort.");
+            return;
+        }
+
+        contacts.stream()
+                .sorted(Comparator.comparing(Contact::getZip))
+                .forEach(System.out::println);
+    }
+
     public List<Contact> getContacts() {
         return contacts;
     }
